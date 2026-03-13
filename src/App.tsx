@@ -1,9 +1,9 @@
+import Body from "./components/Body";
+
 
 const App = () =>{
   return(
-    <div>
-      <h1>Netflix GPT</h1>
-    </div>
+    <Body/>
   )
 }
 

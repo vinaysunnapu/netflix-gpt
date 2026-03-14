@@ -2,13 +2,17 @@ import { useState, useRef } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 import { auth } from "../utils/firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const name = useRef(null);
   const email = useRef(null);
@@ -28,7 +32,16 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/12824231?v=4",
+          })
+            .then(() => {
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -37,11 +50,10 @@ const Login = () => {
         });
     } else {
       // Sign In Logic
-
       signInWithEmailAndPassword(
         auth,
         email.current.value,
-        password.current.value
+        password.current.value,
       )
         .then((userCredential) => {
           // Signed in
@@ -56,7 +68,6 @@ const Login = () => {
         });
     }
   };
-
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
   };

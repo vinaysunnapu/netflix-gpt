@@ -1,3 +1,4 @@
+const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 export const LOGO =
   "https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png";
 
@@ -9,7 +10,7 @@ export const USER_AVATAR =
   headers: {
     accept: "application/json",
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmOWI2N2E4N2NhNDVmMmJjMmNkMzEyMzcyYjlhNzc5YSIsIm5iZiI6MTc3MzY0MjY4MC43ODcwMDAyLCJzdWIiOiI2OWI3YTNiOGI3NDUwYTFmYjYwMWZkOTEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.mw9CBQvnsjITuA4tw1WCp6CxQl5Ph0W-ujRf2d4G6pU",
+      `Bearer ${TMDB_API_KEY}`,
   },
 };
 

@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type { GPTState, Movie } from "../types";
 
 const gptSlice = createSlice({
   name: "gpt",
@@ -6,12 +8,12 @@ const gptSlice = createSlice({
     showGptSearch: false,
     movieResults: null,
     movieNames: null,
-  },
+  } as GPTState,
   reducers: {
     toggleGptSearchView: (state) => {
       state.showGptSearch = !state.showGptSearch;
     },
-    addGptMovieResult: (state, action) => {
+    addGptMovieResult: (state, action: PayloadAction<{ movieNames: string[]; movieResults: Movie[][] }>) => {
       const { movieNames, movieResults } = action.payload;
       state.movieNames = movieNames;
       state.movieResults = movieResults;
@@ -19,6 +21,6 @@ const gptSlice = createSlice({
   },
 });
 
-export const { toggleGptSearchView, addGptMovieResult  } = gptSlice.actions;
+export const { toggleGptSearchView, addGptMovieResult } = gptSlice.actions;
 
 export default gptSlice.reducer;

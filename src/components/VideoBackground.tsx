@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import useMovieTrailer from "../hooks/useMovieTrailer";
+import type { RootState } from "../types";
 
-const VideoBackground = ({ movieId }) => {
-  const trailerVideo = useSelector((store) => store.movies?.trailerVideo);
+const VideoBackground: React.FC<{ movieId: number }> = ({ movieId }) => {
+  const trailerVideo = useSelector((store: RootState) => store.movies?.trailerVideo);
 
   useMovieTrailer(movieId);
 

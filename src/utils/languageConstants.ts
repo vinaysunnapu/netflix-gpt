@@ -1,4 +1,6 @@
-const lang = {
+import type { LanguageConstants } from "../types";
+
+const lang: LanguageConstants = {
   en: {
     search: "Search",
     gptSearchPlaceholder: "What would you like to watch today?",

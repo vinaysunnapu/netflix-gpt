@@ -1,6 +1,7 @@
 import MovieCard from "./MovieCard";
+import type { Movie } from "../types";
 
-const MovieList = ({ title, movies }) => {
+const MovieList: React.FC<{ title: string; movies: Movie[] }> = ({ title, movies }) => {
   console.log(movies);
   return (
     <div className="px-6 ">

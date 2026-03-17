@@ -7,20 +7,18 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import {BG_URL, USER_AVATAR} from '../utils/constants'
-
+import { BG_URL, USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
-  const [isSignInForm, setIsSignInForm] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [isSignInForm, setIsSignInForm] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-
-  const name = useRef(null);
-  const email = useRef(null);
-  const password = useRef(null);
+  const name = useRef<HTMLInputElement | null>(null);
+  const email = useRef<HTMLInputElement | null>(null);
+  const password = useRef<HTMLInputElement | null>(null);
 
   const handleButtonClick = () => {
-    const message = checkValidData(email.current.value, password.current.value);
+    const message = checkValidData(email.current?.value || "", password.current?.value || "");
     setErrorMessage(message);
     if (message) return;
 
@@ -28,13 +26,13 @@ const Login = () => {
       // Sign Up Logic
       createUserWithEmailAndPassword(
         auth,
-        email.current.value,
-        password.current.value,
+        email.current?.value || "",
+        password.current?.value || "",
       )
         .then((userCredential) => {
           const user = userCredential.user;
           updateProfile(user, {
-            displayName: name.current.value,
+            displayName: name.current?.value || "",
             photoURL: USER_AVATAR,
           })
             .then(() => {
@@ -52,8 +50,8 @@ const Login = () => {
       // Sign In Logic
       signInWithEmailAndPassword(
         auth,
-        email.current.value,
-        password.current.value,
+        email.current?.value || "",
+        password.current?.value || "",
       )
         .then((userCredential) => {
           // Signed in
@@ -87,6 +85,7 @@ const Login = () => {
 
         {!isSignInForm && (
           <input
+            ref={name}
             type="text"
             placeholder="Full Name"
             className="p-4 my-4 w-full bg-gray-700"

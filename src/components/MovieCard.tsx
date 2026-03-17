@@ -1,6 +1,6 @@
 import { IMG_CDN_URL } from "../utils/constants";
 
-const MovieCard = ({ posterPath }) => {
+const MovieCard: React.FC<{ posterPath: string | null }> = ({ posterPath }) => {
   if (!posterPath) return null;
   return (
     <div className="w-48 pr-4">

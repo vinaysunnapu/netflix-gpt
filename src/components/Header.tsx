@@ -7,19 +7,19 @@ import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
 import { toggleGptSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
-
+import type { RootState, Language } from "../types";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((store) => store.user);
-  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+  const user = useSelector((store: RootState) => store.user);
+  const showGptSearch = useSelector((store: RootState) => store.gpt.showGptSearch);
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
         // navigate("/");
       })
-      .catch((error) => {
+      .catch((_error) => {
         navigate("/error");
       });
   };
@@ -36,13 +36,13 @@ const Header = () => {
             photoURL: photoURL,
           }),
         );
-         navigate("/browse");
+        navigate("/browse");
       } else {
         dispatch(removeUser());
         navigate("/");
       }
     });
-     // Unsiubscribe when component unmounts
+    // Unsiubscribe when component unmounts
     return () => {
       unsubscribe();
     };
@@ -53,8 +53,8 @@ const Header = () => {
     dispatch(toggleGptSearchView());
   };
 
-  const handleLanguageChange = (e) => {
-    dispatch(changeLanguage(e.target.value));
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(changeLanguage(e.target.value as Language));
   };
 
   return (
@@ -84,7 +84,7 @@ const Header = () => {
           >
             {showGptSearch ? "Homepage" : "GPT Search"}
           </button>
-          <img className="w-12 h-12" alt="usericon" src={user?.photoURL} />
+          <img className="w-12 h-12" alt="usericon" src={user?.photoURL || undefined} />
           <button onClick={handleSignOut} className="font-bold text-white ">
             (Sign Out)
           </button>

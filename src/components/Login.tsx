@@ -70,16 +70,17 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="relative min-h-screen">
       <Header />
-      <div className="absolute">
-        <img className="h-screen object-cover" src={BG_URL} alt="logo" />
+      <div className="fixed inset-0 -z-10">
+        <img className="h-full w-full object-cover" src={BG_URL} alt="background" />
       </div>
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        className="w-full md:w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-80"
-      >
-        <h1 className="font-bold text-3xl py-4">
+      <div className="flex min-h-[calc(100vh-64px)] items-center justify-center px-4 py-12">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="w-full max-w-md rounded-xl bg-black bg-opacity-80 p-8 text-white shadow-xl sm:p-10"
+        >
+        <h1 className="text-2xl font-bold sm:text-3xl">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
 
@@ -88,34 +89,43 @@ const Login = () => {
             ref={name}
             type="text"
             placeholder="Full Name"
-            className="p-4 my-4 w-full bg-gray-700"
+            className="mt-6 w-full rounded-lg bg-gray-700 p-4"
           />
         )}
         <input
           ref={email}
           type="text"
           placeholder="Email Address"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="mt-6 w-full rounded-lg bg-gray-700 p-4"
         />
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="mt-6 w-full rounded-lg bg-gray-700 p-4"
         />
-        <p className="text-red-500 font-bold text-lg py-2">{errorMessage}</p>
+
+        <p className="mt-4 text-center text-sm font-semibold text-red-500">
+          {errorMessage}
+        </p>
+
         <button
-          className="p-4 my-6 bg-red-700 w-full rounded-lg"
+          className="mt-6 w-full rounded-lg bg-red-700 py-4 text-base font-semibold transition hover:bg-red-600"
           onClick={handleButtonClick}
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-        <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
+
+        <p
+          className="mt-4 text-center text-sm text-white/70 hover:text-white cursor-pointer"
+          onClick={toggleSignInForm}
+        >
           {isSignInForm
             ? "New to Netflix? Sign Up Now"
             : "Already registered? Sign In Now."}
         </p>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };

@@ -21,8 +21,10 @@ const useMovieTrailer = (movieId: number) => {
     dispatch(addTrailerVideo(trailer));
   };
   useEffect(() => {
-    !trailerVideo && getMovieVideos();
-  }, []);
+    if (!trailerVideo) {
+      getMovieVideos();
+    }
+  }, [trailerVideo]);
 };
 
 export default useMovieTrailer;

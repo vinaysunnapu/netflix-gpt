@@ -46,7 +46,10 @@ export interface ConfigState {
 
 export interface MoviesState {
   nowPlayingMovies: Movie[] | null;
+  trendingMovies: Movie[] | null;
   popularMovies: Movie[] | null;
+  upcomingMovies: Movie[] | null;
+  horrorMovies: Movie[] | null;
   trailerVideo: Video | null;
 }
 

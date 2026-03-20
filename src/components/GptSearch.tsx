@@ -5,8 +5,8 @@ import GptSearchBar from "./GptSearchBar";
 const GPTSearch = () => {
   return (
     <div className="relative h-screen flex flex-col overflow-hidden">
-      <div className="fixed inset-0 -z-10">
-        <img className="h-full w-full object-cover" src={BG_URL} alt="background" />
+      <div className="fixed inset-0 -z-10 bg-black">
+        <img className="h-full w-full object-cover opacity-50" src={BG_URL} alt="background" />
       </div>
       
       {/* Container spacing for the fixed header */}

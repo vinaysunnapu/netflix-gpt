@@ -51,6 +51,7 @@ export interface MoviesState {
   upcomingMovies: Movie[] | null;
   horrorMovies: Movie[] | null;
   trailerVideo: Video | null;
+  trailerModalMovieId: number | null;
 }
 
 export interface UserState {

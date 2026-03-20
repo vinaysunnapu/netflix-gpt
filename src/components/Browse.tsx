@@ -7,6 +7,7 @@ import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
 import usePopularMovies from "../hooks/usePopularMovies";
 import GptSearch from "./GptSearch";
+import TrailerModal from "./TrailerModal";
 import { useSelector } from "react-redux";
 import type { RootState } from "../types";
 
@@ -22,6 +23,7 @@ const Browse = () => {
   return (
     <div>
       <Header />
+      <TrailerModal />
       {showGptSearch ? (
         <GptSearch />
       ) : (

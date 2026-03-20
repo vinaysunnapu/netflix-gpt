@@ -110,7 +110,7 @@ const Login = () => {
         </p>
 
         <button
-          className="mt-6 w-full rounded-lg bg-red-700 py-4 text-base font-semibold transition hover:bg-red-600"
+          className="mt-6 w-full rounded-lg bg-red-700 py-4 text-base font-semibold transition hover:bg-red-600 cursor-pointer"
           onClick={handleButtonClick}
         >
           {isSignInForm ? "Sign In" : "Sign Up"}

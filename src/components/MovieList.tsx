@@ -45,7 +45,7 @@ const MovieList: React.FC<{ title: string; movies: Movie[] }> = ({ title, movies
       <div className="relative group">
         {showLeft && (
           <button 
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-full bg-black/50 text-white hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 hover:bg-black/80 rounded-r-md"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-full bg-black/50 text-white hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 hover:bg-black/80 rounded-r-md cursor-pointer"
             onClick={scrollLeftAction}
           >
             <span className="text-5xl font-bold drop-shadow-xl">&lsaquo;</span>
@@ -66,7 +66,7 @@ const MovieList: React.FC<{ title: string; movies: Movie[] }> = ({ title, movies
 
         {showRight && (
           <button 
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-full bg-black/50 text-white hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 hover:bg-black/80 rounded-l-md"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-full bg-black/50 text-white hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 hover:bg-black/80 rounded-l-md cursor-pointer"
             onClick={scrollRightAction}
           >
             <span className="text-5xl font-bold drop-shadow-xl">&rsaquo;</span>

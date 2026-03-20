@@ -78,7 +78,7 @@ const Login = () => {
       <div className="flex min-h-[calc(100vh-64px)] items-center justify-center px-4 py-12">
         <form
           onSubmit={(e) => e.preventDefault()}
-          className="w-full max-w-md rounded-xl bg-black bg-opacity-80 p-8 text-white shadow-xl sm:p-10"
+          className="w-full max-w-md rounded-xl bg-black/80 p-8 text-white shadow-xl sm:p-10"
         >
         <h1 className="text-2xl font-bold sm:text-3xl">
           {isSignInForm ? "Sign In" : "Sign Up"}
@@ -105,7 +105,7 @@ const Login = () => {
           className="mt-6 w-full rounded-lg bg-gray-700 p-4"
         />
 
-        <p className="mt-4 text-center text-sm font-semibold text-red-500">
+        <p className="mt-4 text-start text-sm font-semibold text-red-500">
           {errorMessage}
         </p>
 

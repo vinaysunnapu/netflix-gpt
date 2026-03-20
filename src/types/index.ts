@@ -38,6 +38,7 @@ export interface GPTState {
   showGptSearch: boolean;
   movieResults: Movie[][] | null;
   movieNames: string[] | null;
+  isGptLoading: boolean;
 }
 
 export interface ConfigState {

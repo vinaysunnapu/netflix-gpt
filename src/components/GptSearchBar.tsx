@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
-import { addGptMovieResult } from "../utils/gptSlice";
+import { addGptMovieResult, setIsGptLoading } from "../utils/gptSlice";
 import type { RootState, TMDBResponse, Movie } from "../types";
 
 const GptSearchBar = () => {
@@ -29,6 +29,8 @@ const GptSearchBar = () => {
     e.preventDefault();
 
     console.log("Searching for: ", searchText.current?.value);
+
+    dispatch(setIsGptLoading(true));
 
     const gptQuery =
       "Act as a Movie Recommendation system and suggest some movies for the query : " +
@@ -59,6 +61,8 @@ const GptSearchBar = () => {
 
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      dispatch(setIsGptLoading(false));
     }
   };
 

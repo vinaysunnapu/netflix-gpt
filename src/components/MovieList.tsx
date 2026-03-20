@@ -1,17 +1,38 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
 import type { Movie } from "../types";
 
 const MovieList: React.FC<{ title: string; movies: Movie[] }> = ({ title, movies }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [showLeft, setShowLeft] = useState(false);
+  const [showRight, setShowRight] = useState(false);
 
-  const scrollLeft = () => {
+  // Checks available scroll room and updates button visibility
+  const checkScrollability = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setShowLeft(scrollLeft > 0);
+      // Using -1 gives a 1px buffer for cross-browser subpixel rounding
+      setShowRight(Math.ceil(scrollLeft) < scrollWidth - clientWidth - 1);
+    }
+  };
+
+  useEffect(() => {
+    // Initial check when component mounts or `movies` prop updates
+    checkScrollability();
+    
+    // Re-check on window resize
+    window.addEventListener("resize", checkScrollability);
+    return () => window.removeEventListener("resize", checkScrollability);
+  }, [movies]);
+
+  const scrollLeftAction = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: -500, behavior: "smooth" });
     }
   };
 
-  const scrollRight = () => {
+  const scrollRightAction = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: 500, behavior: "smooth" });
     }
@@ -22,16 +43,19 @@ const MovieList: React.FC<{ title: string; movies: Movie[] }> = ({ title, movies
       <h1 className="text-lg md:text-3xl py-4 text-white font-semibold flex items-center">{title}</h1>
       
       <div className="relative group">
-        <button 
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-full bg-black/40 text-white hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 hover:bg-black/70 rounded-r-md"
-          onClick={scrollLeft}
-        >
-          <span className="text-5xl font-bold drop-shadow-xl">&lsaquo;</span>
-        </button>
+        {showLeft && (
+          <button 
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-full bg-black/50 text-white hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 hover:bg-black/80 rounded-r-md"
+            onClick={scrollLeftAction}
+          >
+            <span className="text-5xl font-bold drop-shadow-xl">&lsaquo;</span>
+          </button>
+        )}
 
         <div 
           ref={scrollRef} 
-          className="flex overflow-x-scroll"
+          className="flex overflow-x-scroll scroll-smooth"
+          onScroll={checkScrollability}
         >
           <div className="flex">
             {movies?.map((movie) => (
@@ -40,14 +64,17 @@ const MovieList: React.FC<{ title: string; movies: Movie[] }> = ({ title, movies
           </div>
         </div>
 
-        <button 
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-full bg-black/40 text-white hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 hover:bg-black/70 rounded-l-md"
-          onClick={scrollRight}
-        >
-          <span className="text-5xl font-bold drop-shadow-xl">&rsaquo;</span>
-        </button>
+        {showRight && (
+          <button 
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-full bg-black/50 text-white hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 hover:bg-black/80 rounded-l-md"
+            onClick={scrollRightAction}
+          >
+            <span className="text-5xl font-bold drop-shadow-xl">&rsaquo;</span>
+          </button>
+        )}
       </div>
     </div>
   );
 };
+
 export default MovieList;

@@ -66,7 +66,7 @@ const Header = () => {
         <div className="flex p-2 justify-between">
           {showGptSearch && (
             <select
-              className="p-2 m-2 bg-gray-900 text-white"
+              className="p-2 m-2 bg-black/70 border border-gray-500 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-white/50 hover:bg-black/90 transition-colors cursor-pointer"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
@@ -77,10 +77,10 @@ const Header = () => {
             </select>
           )}
           <button
-            className="py-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg cursor-pointer"
+            className="px-6 py-2 mx-4 my-2 bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-bold rounded-md shadow-[0_0_15px_rgba(220,38,38,0.5)] hover:shadow-[0_0_25px_rgba(220,38,38,0.7)] transition-all duration-300 transform hover:scale-105 cursor-pointer flex items-center gap-2"
             onClick={handleGptSearchClick}
           >
-            {showGptSearch ? "Homepage" : "GPT Search"}
+            {showGptSearch ? "Homepage" : "✨ GPT Search"}
           </button>
           <div className="flex items-center gap-4">
             {user?.photoURL ? (

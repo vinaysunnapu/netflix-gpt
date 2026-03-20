@@ -82,14 +82,25 @@ const Header = () => {
           >
             {showGptSearch ? "Homepage" : "GPT Search"}
           </button>
-          <img
-            className="hidden md:block w-12 h-12"
-            alt="usericon"
-            src={user?.photoURL || undefined}
-          />
-          <button onClick={handleSignOut} className="font-bold text-white ">
-            (Sign Out)
-          </button>
+          <div className="flex items-center gap-4">
+            {user?.photoURL ? (
+              <img
+                className="hidden md:block w-10 h-10 rounded-md object-cover"
+                alt="usericon"
+                src={user.photoURL}
+              />
+            ) : (
+              <div className="hidden md:flex w-10 h-10 rounded-md bg-red-600 text-white items-center justify-center font-bold text-xl uppercase">
+                {user?.displayName ? user.displayName.charAt(0) : user?.email?.charAt(0) || "U"}
+              </div>
+            )}
+            <button 
+              onClick={handleSignOut} 
+              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition duration-300"
+            >
+              Sign Out
+            </button>
+          </div>
         </div>
       )}
     </div>

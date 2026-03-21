@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { openModal } from "../utils/modalSlice";
+import { openModal } from "../redux/store/slices/modalSlice";
 import type { Movie } from "../types";
 
 const VideoTitle: React.FC<{ movie: Movie }> = ({ movie }) => {

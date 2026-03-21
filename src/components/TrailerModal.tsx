@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTrailerModalMovieId } from "../utils/moviesSlice";
+import { setTrailerModalMovieId } from "../redux/store/slices/moviesSlice";
 import { API_OPTIONS } from "../utils/constants";
 import type { RootState, TMDBResponse, Video } from "../types";
 

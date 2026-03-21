@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../types";
-import { closeModal } from "../utils/modalSlice";
+import { closeModal } from "../redux/store/slices/modalSlice";
 import { IMG_CDN_URL } from "../utils/constants";
 
 const MovieModal = () => {

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
-import { addGptMovieResult, setIsGptLoading } from "../utils/gptSlice";
+import { addGptMovieResult, setIsGptLoading } from "../redux/store/slices/gptSlice";
 import type { RootState, TMDBResponse, Movie } from "../types";
 
 const GptSearchBar = () => {

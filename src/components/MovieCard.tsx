@@ -1,6 +1,6 @@
 import { IMG_CDN_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
-import { setTrailerModalMovieId } from "../utils/moviesSlice";
+import { setTrailerModalMovieId } from "../redux/store/slices/moviesSlice";
 
 const MovieCard: React.FC<{ posterPath: string | null; movieId: number }> = ({ posterPath, movieId }) => {
   const dispatch = useDispatch();

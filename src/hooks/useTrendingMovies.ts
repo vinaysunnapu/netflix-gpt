@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
-import { addTrendingMovies } from "../utils/moviesSlice";
+import { addTrendingMovies } from "../redux/store/slices/moviesSlice";
 import type { RootState, TMDBResponse, Movie } from "../types";
 
 const useTrendingMovies = () => {

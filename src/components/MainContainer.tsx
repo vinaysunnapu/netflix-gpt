@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import VideoBackground from "./VideoBackground";
 import VideoTitle from "./VideoTitle";
+import MainContainerSkeleton from "./MainContainerSkeleton";
 import type { RootState, Movie } from "../types";
 
 const MainContainer = () => {
   const movies = useSelector((store: RootState) => store.movies?.nowPlayingMovies);
 
-  if (!movies) return;
+  if (!movies) return <MainContainerSkeleton />;
 
   const mainMovie: Movie = movies[0];
 

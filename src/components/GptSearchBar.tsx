@@ -1,5 +1,5 @@
 import lang from "../utils/languageConstants";
-import { useRef } from "react";
+import { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
@@ -9,7 +9,7 @@ import type { RootState, TMDBResponse, Movie } from "../types";
 const GptSearchBar = () => {
   const dispatch = useDispatch();
   const langKey = useSelector((store: RootState) => store.config.lang);
-  const searchText = useRef<HTMLInputElement | null>(null);
+  const [searchText, setSearchText] = useState("");
   const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
   const genAI = new GoogleGenerativeAI(geminiApiKey);
 
@@ -28,13 +28,15 @@ const GptSearchBar = () => {
   const handleGptSearchClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("Searching for: ", searchText.current?.value);
+    if (!searchText.trim()) return;
+
+    console.log("Searching for: ", searchText);
 
     dispatch(setIsGptLoading(true));
 
     const gptQuery =
       "Act as a Movie Recommendation system and suggest some movies for the query : " +
-      searchText.current?.value +
+      searchText +
       ". only give me names of 5 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
 
     try {
@@ -73,12 +75,20 @@ const GptSearchBar = () => {
         className=" w-full md:w-1/2 bg-black grid grid-cols-12"
       >
         <input
-          ref={searchText}
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
           type="text"
           className=" p-4 m-4 col-span-9 placeholder-white text-white"
           placeholder={lang[langKey].gptSearchPlaceholder}
         />
-        <button className="col-span-3 m-4 py-2 px-4 bg-red-700 text-white rounded-lg cursor-pointer">
+        <button 
+          disabled={!searchText.trim()}
+          className={`col-span-3 m-4 py-2 px-4 rounded-lg transition-colors ${
+            !searchText.trim() 
+              ? "bg-red-400 cursor-not-allowed text-white/50" 
+              : "bg-red-700 text-white cursor-pointer hover:bg-red-800"
+          }`}
+        >
           {lang[langKey].search}
         </button>
       </form>

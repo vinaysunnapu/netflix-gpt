@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import Browse from "./Browse";
-import Player from "./Player";
-import Login from "./Login";
+import Browse from "../pages/Browse";
+import Player from "../pages/Player";
+import Login from "../auth/Login";
 import { RouterProvider } from "react-router-dom";
 
 

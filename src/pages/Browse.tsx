@@ -1,14 +1,14 @@
-import Header from "./Header";
+import Header from "../components/Header";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import useTrendingMovies from "../hooks/useTrendingMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import useHorrorMovies from "../hooks/useHorrorMovies";
-import MainContainer from "./MainContainer";
-import SecondaryContainer from "./SecondaryContainer";
+import MainContainer from "../components/MainContainer";
+import SecondaryContainer from "../components/SecondaryContainer";
 import usePopularMovies from "../hooks/usePopularMovies";
-import GptSearch from "./GptSearch";
-import TrailerModal from "./TrailerModal";
-import MovieModal from "./MovieModal";
+import GptSearch from "../components/GptSearch";
+import TrailerModal from "../components/TrailerModal";
+import MovieModal from "../components/MovieModal";
 import { useSelector } from "react-redux";
 import type { RootState } from "../types";
 

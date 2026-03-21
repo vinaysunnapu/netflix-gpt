@@ -1,12 +1,23 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { openModal } from "../utils/modalSlice";
+import type { Movie } from "../types";
 
-const VideoTitle: React.FC<{ title: string; overview: string }> = ({ title, overview }) => {
+const VideoTitle: React.FC<{ movie: Movie }> = ({ movie }) => {
+  const { title, original_title, overview, id } = movie;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
-    <div className="w-screen aspect-video pt-[20%] px-6 md:px-24 absolute text-white bg-gradient-to-r from-black">
-      <h1 className="text-2xl md:text-6xl font-bold">{title}</h1>
-      <p className="hidden md:inline-block py-6 text-lg w-1/4">{overview}</p>
-      <div className="my-4 md:m-0 flex items-center gap-3">
-        <button className="flex items-center gap-2 bg-white text-black py-2 px-6 md:py-3 md:px-10 text-base md:text-xl font-semibold rounded-md hover:bg-opacity-80 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg group cursor-pointer">
+    <div className="w-screen aspect-video pt-[20%] px-6 md:px-24 absolute text-white bg-gradient-to-r from-black pointer-events-none">
+      <h1 className="text-2xl md:text-6xl font-bold pointer-events-auto">{original_title || title}</h1>
+      <p className="hidden md:inline-block py-6 text-lg w-1/4 pointer-events-auto line-clamp-3">{overview}</p>
+      <div className="my-4 md:m-0 flex items-center gap-3 pointer-events-auto">
+        <button 
+          onClick={() => navigate(`/player/${id}`)}
+          className="flex items-center gap-2 bg-white text-black py-2 px-6 md:py-3 md:px-10 text-base md:text-xl font-semibold rounded-md hover:bg-opacity-80 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg group cursor-pointer"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -17,7 +28,10 @@ const VideoTitle: React.FC<{ title: string; overview: string }> = ({ title, over
           </svg>
           Play
         </button>
-        <button className="hidden md:flex items-center gap-2 bg-gray-500/70 text-white py-3 px-10 text-xl font-semibold rounded-md hover:bg-gray-500/90 transition-all duration-300 hover:scale-105 active:scale-95 backdrop-blur-sm shadow-lg group cursor-pointer">
+        <button 
+          onClick={() => dispatch(openModal(movie))}
+          className="hidden md:flex items-center gap-2 bg-gray-500/70 text-white py-3 px-10 text-xl font-semibold rounded-md hover:bg-gray-500/90 transition-all duration-300 hover:scale-105 active:scale-95 backdrop-blur-sm shadow-lg group cursor-pointer"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

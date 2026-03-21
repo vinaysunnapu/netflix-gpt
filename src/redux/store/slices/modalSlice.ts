@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { Movie } from "../types";
+import type { Movie } from "../../../types";
 
 interface ModalState {
   isOpen: boolean;

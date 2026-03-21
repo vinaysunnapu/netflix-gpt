@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { ConfigState, Language } from "../types";
+import type { ConfigState, Language } from "../../../types";
 
 const configSlice = createSlice({
   name: "config",

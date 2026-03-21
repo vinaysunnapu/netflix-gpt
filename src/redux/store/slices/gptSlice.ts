@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { GPTState, Movie } from "../types";
+import type { GPTState, Movie } from "../../../types";
 
 const gptSlice = createSlice({
   name: "gpt",

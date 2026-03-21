@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { MoviesState, Movie, Video } from "../types";
+import type { MoviesState, Movie, Video } from "../../../types";
 
 const moviesSlice = createSlice({
   name: "movies",

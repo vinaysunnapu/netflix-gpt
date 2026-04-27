@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useDispatch } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
-import { addGptMovieResult, setIsGptLoading } from "../redux/store/slices/gptSlice";
+import { addGptMovieResult, setIsGptLoading, setGptError } from "../redux/store/slices/gptSlice";
 import type { TMDBResponse, Movie } from "../types";
 
 const useGptSearch = () => {
@@ -29,17 +29,27 @@ const useGptSearch = () => {
     console.log("Searching for: ", searchText);
 
     dispatch(setIsGptLoading(true));
+    dispatch(setGptError(null));
 
     const gptQuery =
       "Act as a Movie Recommendation system and suggest some movies for the query : " +
       searchText +
       ". only give me names of 5 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
 
+    let model;
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite-preview" });
+      model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite-preview" });
+    } catch (error) {
+      const message =
+        "Unable to initialize Gemini. Please verify your API key and network connection.";
+      dispatch(setGptError(message));
+      console.error("Gemini initialization error:", error);
+      dispatch(setIsGptLoading(false));
+      return;
+    }
 
+    try {
       const result = await model.generateContent(gptQuery);
-
       const response = await result.response;
       const text = response.text();
 
@@ -47,17 +57,15 @@ const useGptSearch = () => {
       const gptMovies: string[] = text.split(",");
 
       const promiseArray: Promise<Movie[]>[] = gptMovies.map((movie) => searchMovieTMDB(movie.trim()));
-
       const tmdbResults: Movie[][] = await Promise.all(promiseArray);
 
       console.log(tmdbResults);
-
-      dispatch(
-        addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
-      );
-
+      dispatch(addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults }));
     } catch (error) {
-      console.error("Error:", error);
+      const message =
+        "Oops! We’re having trouble finding recommendations right now. Please try again in a moment.";
+      dispatch(setGptError(message));
+      console.error("GPT search error:", error);
     } finally {
       dispatch(setIsGptLoading(false));
     }
